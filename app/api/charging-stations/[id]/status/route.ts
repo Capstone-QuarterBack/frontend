@@ -31,12 +31,16 @@ function generateMockData(stationId: string): ChargingStatusResponse {
   }
 }
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  // 전체 params 객체를 await
+  const resolvedParams = await params
+  const id = resolvedParams.id
+
   // 모의 데이터 생성
-  const data = generateMockData(params.id)
+  const data = generateMockData(id)
 
   // 모의 데이터 저장 (다음 요청에서 참조하기 위함)
-  mockStationData[params.id] = data
+  mockStationData[id] = data
 
   // 실제 API 응답 시뮬레이션을 위한 지연
   await new Promise((resolve) => setTimeout(resolve, 500))
