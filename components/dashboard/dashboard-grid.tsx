@@ -19,7 +19,7 @@ export default function DashboardGrid() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {dashboards.map((dashboard) => (
           <div key={dashboard.id} className="bg-gray-800 rounded-lg p-2 shadow-lg">
-            <DashboardLayout data={dashboard} />
+            <DashboardLayout data={dashboard} stationId={dashboard.id?.toString()} />
           </div>
         ))}
       </div>
